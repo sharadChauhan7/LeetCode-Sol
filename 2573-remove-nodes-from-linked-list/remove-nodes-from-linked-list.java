@@ -23,26 +23,21 @@ class Solution {
             curr=next;
         }
         // return prev;
-        while(prev!=null){
-            if(!st.isEmpty()){
-                if(prev.val>=st.peek().val){
-                    st.push(prev);
-                }
+        head = prev;
+        curr=prev.next;
+        while(curr!=null){
+            if(curr.val<prev.val){
+                curr=curr.next;
             }
             else{
-                st.push(prev);
+                ListNode next = curr.next;
+                curr.next=prev;
+                prev=curr;
+                curr=next;
             }
-            prev=prev.next;
         }
-        if(!st.isEmpty()){
-            head=st.pop();
-        }
-        curr=head;
-        while(!st.isEmpty()){
-            curr.next=st.pop();
-            curr=curr.next;
-        }
-        curr.next=null;
-        return head;
+        head.next=null;
+        return prev;
+
     }
 }
