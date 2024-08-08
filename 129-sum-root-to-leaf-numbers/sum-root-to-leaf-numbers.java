@@ -21,17 +21,15 @@ class Solution {
         return sum;
     }
     public static void helper(TreeNode root , int n){
+        if(root== null){
+            return;
+        }
         n= n*10+root.val;
         if(root.left== null && root.right == null){
             sum+=n;
             return;
         }
-
-        if(root.left!=null){
             helper(root.left,n);
-        }
-        if(root.right!=null){
             helper(root.right,n);
-        }
     }
 }
