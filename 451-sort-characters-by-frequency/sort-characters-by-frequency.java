@@ -12,11 +12,12 @@ class Solution {
 
         StringBuilder sb = new StringBuilder();
         while(!pq.isEmpty()){
-            char curr = pq.peek().getKey();
-            while(map.get(curr)!=0){
-                sb.append(curr);
-                map.put(curr,map.get(curr)-1);
-                if(map.get(curr)==0)pq.remove();
+            HashMap.Entry<Character,Integer> curr = pq.remove();
+            char key = curr.getKey();
+            int freq = curr.getValue();
+
+            for(int i=0;i<freq;i++){
+                sb.append(key);
             }
         }
         return sb.toString();
