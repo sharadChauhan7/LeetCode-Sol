@@ -1,20 +1,24 @@
 class Solution {
     public boolean isNStraightHand(int[] hand, int groupSize) {
-         Arrays.sort(hand);
-        Map<Integer,Integer> map = new HashMap<>();
-        for(int h:hand){
-           map.put(h,map.getOrDefault(h,0)+1);
+        if(hand.length%groupSize!=0)return false;
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(int i:hand){
+            map.put(i,map.getOrDefault(i,0)+1);
         }
-        for(int h:hand){
-            if(map.get(h)>0){
-                for(int j = 0;j<groupSize;j++){
-                    int nexthand = h+j;
-                     if(map.containsKey(nexthand)&&map.get(nexthand)>0){
-                        map.put(nexthand,map.getOrDefault(nexthand,0)-1);
-                     }
-                     else{
-                        return false;
-                     }
+        PriorityQueue<Integer> pq =new PriorityQueue<>();
+        for(int i:map.keySet()){
+            pq.add(i);
+        }
+        while(!pq.isEmpty()){
+            int first = pq.peek();
+            for(int i=first;i<first+groupSize;i++){
+                if(!map.containsKey(i))return false;
+                else{
+                    map.put(i,map.get(i)-1);
+                    if(map.get(i)==0){
+                        int val= pq.remove();
+                        if(val!=i)return false;
+                    }
                 }
             }
         }
