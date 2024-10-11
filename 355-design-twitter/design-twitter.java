@@ -9,7 +9,7 @@ class Twitter {
         }
         @Override
         public int compareTo(Info i){
-            return this.time-i.time;
+            return i.time-this.time;
         }
     }
 
@@ -35,12 +35,15 @@ class Twitter {
     
     public List<Integer> getNewsFeed(int userId) {
         if (!map.containsKey(userId)) return new LinkedList<>();
-        PriorityQueue<Info> feed = new PriorityQueue<>((t1, t2) -> t2.time - t1.time);
-        map.get(userId).stream()
-            .filter(f -> posts.containsKey(f))
-            .forEach(f -> posts.get(f).forEach(feed::add));
+        PriorityQueue<Info> pq = new PriorityQueue<>();
+        for(int user:map.get(userId)){
+            List<Info> tweets = posts.get(user);
+            if (tweets != null) {
+                pq.addAll(tweets);
+            }
+        }
         List<Integer> res = new LinkedList<>();
-        while (feed.size() > 0 && res.size() < 10) res.add(feed.poll().tweetId);
+        while (pq.size() > 0 && res.size() < 10) res.add(pq.poll().tweetId);
         return res;
     }
     
