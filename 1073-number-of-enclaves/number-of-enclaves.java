@@ -23,23 +23,23 @@ class Solution {
         for(int i=1;i<n-1;i++){
             for(int j=1;j<m-1;j++){
                 if(grid[i][j]==1 && !isV[i][j]){
-                   count+=dfs(grid,isV,i,j);
+                    count++;
+                    isV[i][j]=true;
                 }
             }
         }
         return count;
     }
 
-    public int dfs(int grid[][],boolean isV[][],int i,int j){
+    public void dfs(int grid[][],boolean isV[][],int i,int j){
         if( i>=0 && j>=0 && i<grid.length && j<grid[0].length && !isV[i][j] && grid[i][j]==1){
             isV[i][j]=true;
-            int a =dfs(grid,isV,i+1,j);
-            int b = dfs(grid,isV,i-1,j);
-            int c= dfs(grid,isV,i,j+1);
-            int d = dfs(grid,isV,i,j-1);
-            return a+b+c+d+1;
+            dfs(grid,isV,i+1,j);
+            dfs(grid,isV,i-1,j);
+            dfs(grid,isV,i,j+1);
+            dfs(grid,isV,i,j-1);
         }
-        return 0;
+        return ;
 
     }
 }
