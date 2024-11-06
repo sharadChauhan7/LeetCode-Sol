@@ -21,7 +21,6 @@ class Solution {
             ans.add(map.get(key));
         }
         
-        // System.out.print(ans);
         return ans;
     }
 }
