@@ -4,6 +4,9 @@ class Solution {
         for(int a :arr){
             target+=a;
         }
+        if(target%2!=0){
+            return false;
+        }
         int dp[][] = new int [arr.length+1][target+1];
         for(int num[]:dp){
             Arrays.fill(num,-1);
