@@ -1,16 +1,10 @@
 class Solution {
     public int compress(char[] chars) {
-        StringBuilder sb  = new StringBuilder("");
-
-        for(char c :chars){
-            sb.append(c);
-        }
-        String str = sb.toString();
         String ans="";
-        for(int i=0;i<str.length();i++){
+        for(int i=0;i<chars.length;i++){
         int count =0;
-        char ch = str.charAt(i);
-        while(i<str.length() && ch==str.charAt(i)){
+        char ch = chars[i];
+        while(i<chars.length && ch==chars[i]){
             count++;
             i++;
         }
