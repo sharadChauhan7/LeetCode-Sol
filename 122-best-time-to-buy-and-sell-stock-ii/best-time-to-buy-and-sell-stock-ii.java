@@ -1,23 +1,23 @@
 class Solution {
     public int maxProfit(int[] prices) {
-        int dp[][] = new int [prices.length+1][2];
+        int arr[] = new int [2];
         for(int i=prices.length-1;i>=0;i--){
             for(int j=1;j>=0;j--){
                 int ans=0;
                 if(j==1){
-                    int take = dp[i+1][0]-prices[i];
-                    int notTake = dp[i+1][1];
+                    int take = arr[0]-prices[i];
+                    int notTake = arr[1];
                     ans = Math.max(take,notTake);
                 }
                 else{
-                    int take = dp[i+1][1]+prices[i];
-                    int notTake = dp[i+1][0];
+                    int take = arr[1]+prices[i];
+                    int notTake = arr[0];
                     ans = Math.max(take,notTake);
                 }
-                dp[i][j]= ans;
+                arr[j]=ans;
             }
         }
-        return dp[0][1];
+        return arr[1];
     }
 
     public int maxProfitUtil(int []prices,int idx,int flag,int dp[][]){
