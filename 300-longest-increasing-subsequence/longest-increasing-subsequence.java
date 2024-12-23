@@ -2,10 +2,6 @@ class Solution {
     public int lengthOfLIS(int[] nums) {
         
         int [][] dp = new int [nums.length+1][nums.length+2];
-        // for(int arr[]:dp){
-        //     Arrays.fill(arr,-1);
-        // }
-        // return lengthOfLISUtil(nums,0,-1,dp);
         for(int idx = nums.length-1;idx>=0;idx--){
             for(int prev = idx-1;prev>=-1;prev--){
                 int ans =0;
@@ -19,6 +15,7 @@ class Solution {
                 dp[idx][prev+1]= ans;
             }
         }
+
         return dp[0][0];
     }
     public int lengthOfLISUtil(int nums[],int idx,int prev,int [][]dp){
