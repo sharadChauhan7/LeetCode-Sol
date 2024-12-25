@@ -1,7 +1,23 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
         
-        int [][] dp = new int [nums.length+1][nums.length+2];
+        int dp[] = new int[nums.length];
+        int hash[] = new int [nums.length];
+        Arrays.fill(dp,1);
+        int max = 1;
+        for(int i=0;i<nums.length;i++){
+            for(int j = 0;j<i;j++){
+                if(nums[j]<nums[i]){
+                    dp[i] = Math.max(dp[i],1+dp[j]);
+                    max = Math.max(max,dp[i]);
+                }
+            }
+        }
+        return max;
+       
+    }
+    public int botumUp(int []nums){
+         int [][] dp = new int [nums.length+1][nums.length+2];
         for(int idx = nums.length-1;idx>=0;idx--){
             for(int prev = idx-1;prev>=-1;prev--){
                 int ans =0;
@@ -15,7 +31,6 @@ class Solution {
                 dp[idx][prev+1]= ans;
             }
         }
-
         return dp[0][0];
     }
     public int lengthOfLISUtil(int nums[],int idx,int prev,int [][]dp){
