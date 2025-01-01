@@ -10,9 +10,7 @@ class Solution {
         }
 
             sol.add(nums[idx]);
-            if(!ans.contains(sol)){
-                combination(nums,t,ans,sum+nums[idx],new ArrayList<>(sol),idx+1);
-            }
+                combination(nums,t,ans,sum+nums[idx],sol,idx+1);
             while(idx+1<nums.length && nums[idx]==nums[idx+1]){
                 idx++;
             }
