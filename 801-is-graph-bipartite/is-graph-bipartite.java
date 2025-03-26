@@ -1,40 +1,29 @@
 class Solution {
-    public boolean bipartUtil(int [][] graph,int [] color,int sidx){
-        Queue<Integer> q = new LinkedList<>();
-        q.add(sidx);
-        while(!q.isEmpty()){
-            int curr = q.remove();
-            if(color[curr]==-1)color[curr]=0;
-
-            for(int i=0;i<graph[curr].length;i++){
-                if(color[graph[curr][i]]==-1){
-                    if(color[curr]==0){
-                        color[graph[curr][i]]=1;
-                    }
-                    else{
-                        color[graph[curr][i]]=0;
-                    }
-                    q.add(graph[curr][i]);
-                }
-                else{
-                    if(color[curr]==color[graph[curr][i]])return false;
-                }
-            }
-        }
-        return true;
-    }
     public boolean isBipartite(int[][] graph) {
-        int [] color = new int[graph.length];
-        for(int i=0;i<graph.length;i++){
-            color[i]=-1;
-        }
-        for(int i=0;i<graph.length;i++){
-            if(color[i]==-1){
-                if(!bipartUtil(graph,color,i)){
+        int n = graph.length;
+        int m = graph[0].length;
+        int isV [] = new int [n];
+        Arrays.fill(isV,-1);
+        for(int i=0;i<n;i++){
+            if(isV[i]==-1){
+                if(!dfs(graph,isV,i,false)){
                     return false;
                 }
             }
         }
         return true;
+    }
+    public boolean dfs(int [][]graph,int[]isV,int curr,boolean color){
+            isV[curr] = color?0:1;
+            for(int i=0;i<graph[curr].length;i++){
+                int val  = graph[curr][i];
+                if(isV[val]==isV[curr]){
+                    return false;
+                }
+                if(isV[val]==-1){
+                    if(!dfs(graph,isV,val,!color)) return false;
+                }
+            }
+            return true;
     }
 }
