@@ -1,25 +1,22 @@
 class Solution {
-
-    static int [][]mov = {{1,0},{0,1},{-1,0},{0,-1}};
-
     public void solve(char[][] board) {
-        int n= board.length;
-        int m= board[0].length;
-        boolean isV[][] = new boolean [n][m];
-        for(int i=0;i<m;i++){
-            if(board[0][i]=='O'){
-                dfsUtil(board,isV,0,i);
-            }
-            if(board[n-1][i]=='O'){
-                dfsUtil(board,isV,n-1,i);
-            }
-        }
-        for(int i=1;i<n-1;i++){
+        int n = board.length;
+        int m = board[0].length; 
+        boolean isV[][] = new boolean[n][m];
+        for(int i=0;i<n;i++){
             if(board[i][0]=='O'){
-                dfsUtil(board,isV,i,0);
+                dfs(board,i,0,isV);
             }
             if(board[i][m-1]=='O'){
-                dfsUtil(board,isV,i,m-1);
+                dfs(board,i,m-1,isV);
+            }
+        }
+        for(int i=0;i<m;i++){
+            if(board[0][i]=='O'){
+                dfs(board,0,i,isV);
+            }
+            if(board[n-1][i]=='O'){
+                dfs(board,n-1,i,isV);
             }
         }
         for(int i=0;i<n;i++){
@@ -27,21 +24,17 @@ class Solution {
                 if(board[i][j]=='O' && !isV[i][j]){
                     board[i][j]='X';
                 }
-
             }
         }
-        return;
     }
-
-    public void dfsUtil(char[][] board,boolean isV[][],int i,int j){
-        if(i>=0 && j>=0 && i<board.length && j<board[0].length && !isV[i][j] && board[i][j]=='O' ){
-            isV[i][j]=true;
-            dfsUtil(board,isV,i+1,j);
-            dfsUtil(board,isV,i,j+1);
-            dfsUtil(board,isV,i-1,j);
-            dfsUtil(board,isV,i,j-1);
+    public void dfs(char[][] board, int r,int c,boolean [][]isV){
+        if(r<0 || r>=board.length || c<0 || c>=board[0].length || board[r][c]!='O'||isV[r][c]){
+            return;
         }
-        return;
+        isV[r][c] = true;   
+        dfs(board,r,c+1,isV);
+        dfs(board,r+1,c,isV);
+        dfs(board,r-1,c,isV);
+        dfs(board,r,c-1,isV);
     }
-
 }
