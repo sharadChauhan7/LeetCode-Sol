@@ -1,6 +1,10 @@
 class Solution {
     public int shortestPathBinaryMatrix(int[][] grid) {
         int r = grid.length;
+        if (grid[0][0] == 1 || grid[r-1][r-1] == 1) {
+            return -1;
+        }
+        
         int c= grid[0].length;
         int isV[][] = new int [r][c];
         for(int arr[]:isV){
@@ -10,9 +14,7 @@ class Solution {
         q.add(new int[]{0,0});
         int dir[][] = {{1,0},{-1,0},{0,1},{0,-1},{1,1},{-1,-1},{1,-1},{-1,1}};
         isV[0][0]=1;
-        if(grid[0][0]==1){
-            return -1;
-        }
+        
         while(!q.isEmpty()){
             int [] curr =q.remove();
             for(int i=0;i<8;i++){
