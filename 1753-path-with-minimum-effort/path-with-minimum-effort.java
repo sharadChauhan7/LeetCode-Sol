@@ -26,7 +26,9 @@ class Solution {
         while(!pq.isEmpty()){
             Pair curr = pq.remove();
             dis[curr.r][curr.c]=curr.abs<dis[curr.r][curr.c]?curr.abs:dis[curr.r][curr.c];
-            
+            if(curr.r == r-1 && curr.c==c-1){
+                return dis[r-1][c-1];
+            }
             for(int i=0;i<4;i++){
                 int nr = curr.r+dir[i][0];
                 int nc = curr.c+dir[i][1];
