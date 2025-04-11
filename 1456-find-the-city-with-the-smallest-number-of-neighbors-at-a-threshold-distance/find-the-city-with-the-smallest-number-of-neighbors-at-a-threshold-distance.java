@@ -14,28 +14,16 @@ class Solution {
         for(int i=0;i<edges.length;i++){
             int r = edges[i][0];
             int c = edges[i][1];
-            // System.out.println(r+" "+c+" "+edges[i][2]+" ");
             city[r][c] = edges[i][2]; 
             city[c][r] = edges[i][2];
         }
-        // for(int i=0;i<n;i++){
-        //     for(int j=0;j<n;j++){
-        //         System.out.print(city[i][j]+" ");
-        //     }
-        //     System.out.println();
-        // }
         int ans=0;
         int anscount=Integer.MAX_VALUE;
         for(int via = 0;via<n;via++){
             for(int i=0;i<n;i++){
                 for(int j=0;j<n;j++){
-                    // System.out.print(city[i][j]+" ");
-                    city[i][j] = Math.min(city[i][j],(city[i][via]+city[via][j]));
-                    
-
-                    // System.out.print(city[i][j]);     
+                    city[i][j] = Math.min(city[i][j],(city[i][via]+city[via][j]));    
                 }
-                // System.out.println();
             }
         }
         for(int i=0;i<n;i++){
