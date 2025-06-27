@@ -1,54 +1,56 @@
 class Solution {
     public int largestRectangleArea(int[] heights) {
         int len = heights.length;
-        int leftMin [] = new int[len];
-        int rightMin [] = new int [len];
-
+        int next [] = new int [len];
+        int prev [] = new int [len];
         Stack<Integer> st = new Stack<>();
-        for(int i=0;i<len;i++){
-            int curr = heights[i];
-            if(st.isEmpty()){
-                leftMin[i] = -1;
-                st.push(i);
-            }
-            else{
-                while(!st.isEmpty() && curr <= heights[st.peek()]){
-                    st.pop();
-                }
-                if(!st.isEmpty()){
-                    leftMin[i] = st.peek();
-                }
-                else{
-                    leftMin[i] = -1;
-                }
-                st.push(i);
-            }
-        } 
-        while(!st.isEmpty()){st.pop();}
         for(int i=len-1;i>=0;i--){
-            int curr = heights[i];
-            if(st.isEmpty()){
-                rightMin[i] = len;
-                st.push(i);
-            }
-            else{
-                while(!st.isEmpty() && curr <= heights[st.peek()]){
+            if(!st.isEmpty()){
+                while(!st.isEmpty() && heights[st.peek()]>=heights[i]){
                     st.pop();
                 }
                 if(!st.isEmpty()){
-                    rightMin[i] = st.peek();
+                    next[i] = st.peek();
                 }
                 else{
-                    rightMin[i] = len;
+                    next[i] = len;
                 }
                 st.push(i);
             }
+            else{
+                st.push(i);
+                next[i] = len;
+            }
         }
-        int ans = Integer.MIN_VALUE;
+        st = new Stack<>();
         for(int i=0;i<len;i++){
-            int h = heights[i]*(rightMin[i]-(leftMin[i]+1));
-            ans = Math.max(ans,h);
+            if(!st.isEmpty()){
+                while(!st.isEmpty() && heights[st.peek()]>=heights[i]){
+                    st.pop();
+                }
+                if(!st.isEmpty()){
+                    prev[i] = st.peek();
+                }
+                else{
+                    prev[i] = -1;
+                }
+                st.push(i);
+            }
+            else{
+                st.push(i);
+                prev[i] = -1;
+            }
         }
-        return ans;
+        int max = Integer.MIN_VALUE;
+        for(int i=0;i<len;i++){
+            int ans = heights[i]* (next[i]-(prev[i]+1)); 
+            max= Math.max(ans,max);
+        }
+        // System.out.println();
+        // for(int i=0;i<len;i++){
+        //     System.out.print(prev[i]+" ");
+        // }
+        return max;
+
     }
 }
